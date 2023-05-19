@@ -1,4 +1,4 @@
-package server
+package main
 
 import (
 	"log"
@@ -20,10 +20,12 @@ func main() {
 	}
 
 	grpcServer := grpc.NewServer()                             // grpc server
+	
+	// Register the gRPC server with the service implementation
+	currencyProto.RegisterConverterServer(grpcServer, NewServer())
+	color.Blue("GRPC Server started at %v", listener.Addr())
+
 	if err = grpcServer.Serve(listener); err != nil {              
 		log.Fatalf("Failed to listen the server: %v", err.Error())
 	}
-
-	currencyProto.RegisterConverterServer(grpcServer, nil)
-	color.Blue("GRPC Server started at %v", listener.Addr())
 }

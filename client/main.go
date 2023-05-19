@@ -1,8 +1,9 @@
-package client
+package main
 
 import (
 	"log"
 
+	"github.com/manan-rastogi/currencyConvertor/currencyProto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -19,7 +20,7 @@ func main() {
 
 	defer conn.Close()
 
-	// client := currencyProto.NewConverterClient(conn)
+	client := currencyProto.NewConverterClient(conn)
 
 	// clientRequestStream := currencyProto.CurrencyRequestList{
 	// 	Requests: []*currencyProto.CurrencyRequest{
@@ -45,4 +46,6 @@ func main() {
 	// 		},
 	// 	},
 	// }
+
+	unaryCurrencyConverter(client)
 }

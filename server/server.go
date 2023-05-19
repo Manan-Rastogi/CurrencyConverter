@@ -1,9 +1,14 @@
-package server
+package main
 
 import "github.com/manan-rastogi/currencyConvertor/currencyProto"
 
-type converterServer struct {
+type CurrencyServer struct{
 	currencyProto.ConverterServer
+}
+
+func NewServer() *CurrencyServer {
+	return &CurrencyServer{
+	}	
 }
 
 
