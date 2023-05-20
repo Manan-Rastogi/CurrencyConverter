@@ -7,19 +7,16 @@ package currencyProto;
 message CurrencyRequest {
     string From = 1;
     string To = 2;
-    int32 amount = 3;
+    float amount = 3;
 }
 
 message CurrencyResponse {
     bool success = 1;
-    int32 rate = 2;
-    int32 input_amount = 3;
-    int32 exchange_amount = 4;
+    float rate = 2;
+    float input_amount = 3;
+    float exchange_amount = 4;
 }
 
-message NoParam {
-
-}
 
 message CurrencyRequestList {
     repeated CurrencyRequest requests = 1;
@@ -29,13 +26,11 @@ message CurrencyResponseList {
     repeated CurrencyResponse responses = 1;
 }
 
-message Welcome {
-    string welcome = 1;
-}
+
 
 
 service Converter {
-    rpc CurrencyConverter(NoParam) returns (Welcome);
+    rpc CurrencyConverter(CurrencyRequest) returns (CurrencyResponse);
 
     rpc CurrencyConverterServerStreaming(CurrencyRequestList) returns (stream CurrencyResponse);
     

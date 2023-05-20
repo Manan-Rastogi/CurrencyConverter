@@ -47,5 +47,9 @@ func main() {
 	// 	},
 	// }
 
-	unaryCurrencyConverter(client)
+	unaryCurrencyConverter(client,  &currencyProto.CurrencyRequest{
+		To: "INR",
+		From: "AUD",
+		Amount: 15000,
+	})
 }

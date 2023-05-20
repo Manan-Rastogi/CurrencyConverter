@@ -14,10 +14,13 @@ var server = NewServer()
 func TestCurrencyConverter(t *testing.T) {
 	log.Println("Testing for Unary Currency Converter.")
 	ctx := context.Background()
-	noParam := currencyProto.NoParam{}
+	input := currencyProto.CurrencyRequest{
+		From: "INR",
+		To: "USD",
+		Amount: 1200,
+	}
 
-	unaryResponse, err := server.CurrencyConverter(ctx, &noParam)
+	unaryResponse, err := server.CurrencyConverter(ctx, &input)
 	require.NoError(t, err)
 	require.NotZero(t, unaryResponse)
-	require.Equal(t, "Welcome to Currency Converter.", unaryResponse.Welcome)
 }

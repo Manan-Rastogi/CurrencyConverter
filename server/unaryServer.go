@@ -3,13 +3,17 @@ package main
 import (
 	"context"
 
-	"github.com/fatih/color"
+	
 	"github.com/manan-rastogi/currencyConvertor/currencyProto"
+	"github.com/manan-rastogi/currencyConvertor/helpers"
+	"github.com/manan-rastogi/currencyConvertor/services"
+	
 )
 
-func (s *CurrencyServer) CurrencyConverter(context.Context, *currencyProto.NoParam) (*currencyProto.Welcome, error) {
-	color.Green("Client Request Received.")
-	return &currencyProto.Welcome{
-		Welcome:  "Welcome to Currency Converter.",
-	}, nil
+func (s *CurrencyServer) CurrencyConverter(ctx context.Context, input *currencyProto.CurrencyRequest) (*currencyProto.CurrencyResponse, error) {
+	helpers.InfoLog("Unary Request Received")
+	
+	service := services.NewService()
+
+	return service.CurrencyConveterService(context.Background(), input)
 }

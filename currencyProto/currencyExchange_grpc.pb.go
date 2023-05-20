@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ConverterClient interface {
-	CurrencyConverter(ctx context.Context, in *NoParam, opts ...grpc.CallOption) (*Welcome, error)
+	CurrencyConverter(ctx context.Context, in *CurrencyRequest, opts ...grpc.CallOption) (*CurrencyResponse, error)
 	CurrencyConverterServerStreaming(ctx context.Context, in *CurrencyRequestList, opts ...grpc.CallOption) (Converter_CurrencyConverterServerStreamingClient, error)
 	CurrencyConverterClientStreaming(ctx context.Context, opts ...grpc.CallOption) (Converter_CurrencyConverterClientStreamingClient, error)
 	CurrencyConverterBidirectionalStreaming(ctx context.Context, opts ...grpc.CallOption) (Converter_CurrencyConverterBidirectionalStreamingClient, error)
@@ -36,8 +36,8 @@ func NewConverterClient(cc grpc.ClientConnInterface) ConverterClient {
 	return &converterClient{cc}
 }
 
-func (c *converterClient) CurrencyConverter(ctx context.Context, in *NoParam, opts ...grpc.CallOption) (*Welcome, error) {
-	out := new(Welcome)
+func (c *converterClient) CurrencyConverter(ctx context.Context, in *CurrencyRequest, opts ...grpc.CallOption) (*CurrencyResponse, error) {
+	out := new(CurrencyResponse)
 	err := c.cc.Invoke(ctx, "/currencyProto.Converter/CurrencyConverter", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -146,7 +146,7 @@ func (x *converterCurrencyConverterBidirectionalStreamingClient) Recv() (*Curren
 // All implementations must embed UnimplementedConverterServer
 // for forward compatibility
 type ConverterServer interface {
-	CurrencyConverter(context.Context, *NoParam) (*Welcome, error)
+	CurrencyConverter(context.Context, *CurrencyRequest) (*CurrencyResponse, error)
 	CurrencyConverterServerStreaming(*CurrencyRequestList, Converter_CurrencyConverterServerStreamingServer) error
 	CurrencyConverterClientStreaming(Converter_CurrencyConverterClientStreamingServer) error
 	CurrencyConverterBidirectionalStreaming(Converter_CurrencyConverterBidirectionalStreamingServer) error
@@ -157,7 +157,7 @@ type ConverterServer interface {
 type UnimplementedConverterServer struct {
 }
 
-func (UnimplementedConverterServer) CurrencyConverter(context.Context, *NoParam) (*Welcome, error) {
+func (UnimplementedConverterServer) CurrencyConverter(context.Context, *CurrencyRequest) (*CurrencyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CurrencyConverter not implemented")
 }
 func (UnimplementedConverterServer) CurrencyConverterServerStreaming(*CurrencyRequestList, Converter_CurrencyConverterServerStreamingServer) error {
@@ -183,7 +183,7 @@ func RegisterConverterServer(s grpc.ServiceRegistrar, srv ConverterServer) {
 }
 
 func _Converter_CurrencyConverter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(NoParam)
+	in := new(CurrencyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -195,7 +195,7 @@ func _Converter_CurrencyConverter_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: "/currencyProto.Converter/CurrencyConverter",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConverterServer).CurrencyConverter(ctx, req.(*NoParam))
+		return srv.(ConverterServer).CurrencyConverter(ctx, req.(*CurrencyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
