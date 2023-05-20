@@ -22,34 +22,37 @@ func main() {
 
 	client := currencyProto.NewConverterClient(conn)
 
-	// clientRequestStream := currencyProto.CurrencyRequestList{
-	// 	Requests: []*currencyProto.CurrencyRequest{
-	// 		{
-	// 			From:   "INR",
-	// 			To:     "USD",
-	// 			Amount: 1200,
-	// 		},
-	// 		{
-	// 			From:   "EUR",
-	// 			To:     "CAD",
-	// 			Amount: 1200,
-	// 		},
-	// 		{
-	// 			From:   "AUD",
-	// 			To:     "CNY",
-	// 			Amount: 1200,
-	// 		},
-	// 		{
-	// 			From:   "BRL",
-	// 			To:     "JPY",
-	// 			Amount: 1200,
-	// 		},
-	// 	},
-	// }
+	clientRequestStream := currencyProto.CurrencyRequestList{
+		Requests: []*currencyProto.CurrencyRequest{
+			{
+				From:   "INR",
+				To:     "USD",
+				Amount: 1200,
+			},
+			{
+				From:   "EUR",
+				To:     "CAD",
+				Amount: 1200,
+			},
+			{
+				From:   "AUD",
+				To:     "CNY",
+				Amount: 1200,
+			},
+			{
+				From:   "BRL",
+				To:     "JPY",
+				Amount: 1200,
+			},
+		},
+	}
 
-	unaryCurrencyConverter(client,  &currencyProto.CurrencyRequest{
-		To: "INR",
-		From: "AUD",
-		Amount: 15000,
-	})
+	// unaryCurrencyConverter(client,  &currencyProto.CurrencyRequest{
+	// 	To: "INR",
+	// 	From: "AUD",
+	// 	Amount: 15000,
+	// })
+
+	callCurrencyConverterClientStreaming(client, &clientRequestStream)
+
 }
