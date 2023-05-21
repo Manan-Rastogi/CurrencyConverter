@@ -55,5 +55,6 @@ func main() {
 
 	// callCurrencyConverterClientStreaming(client, &clientRequestStream)
 
-	callCurrencyConverterServerStreaming(client, &clientRequestStream)
+	// callCurrencyConverterServerStreaming(client, &clientRequestStream)
+	callCurrencyConverterBidirectionalStreaming(client, &clientRequestStream)
 }
