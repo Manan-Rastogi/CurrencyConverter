@@ -53,6 +53,7 @@ func main() {
 	// 	Amount: 15000,
 	// })
 
-	callCurrencyConverterClientStreaming(client, &clientRequestStream)
+	// callCurrencyConverterClientStreaming(client, &clientRequestStream)
 
+	callCurrencyConverterServerStreaming(client, &clientRequestStream)
 }
